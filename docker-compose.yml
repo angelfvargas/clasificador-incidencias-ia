@@ -1,0 +1,30 @@
+services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_datos:/data/db
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file: .env
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+    depends_on:
+      - mongo
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: frontend
+      args:
+        VITE_API_URL: http://localhost:8000
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+
+volumes:
+  mongo_datos:
