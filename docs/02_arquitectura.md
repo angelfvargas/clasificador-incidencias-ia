@@ -15,11 +15,12 @@ flowchart LR
 ## 2.2 Diagrama de contenedores / componentes
 
 ```mermaid
-flowchart TB
+flowchart LR
     subgraph Navegador
         FE[Frontend React + Vite<br/>servido por nginx :8080]
     end
     subgraph API["Backend FastAPI :8000"]
+        direction TB
         R[Rutas REST<br/>main.py]
         SEG[Autenticación y roles<br/>seguridad.py]
         ESQ[Validación<br/>esquemas.py]
@@ -27,6 +28,7 @@ flowchart TB
         IA[Cliente del modelo<br/>ia.py]
     end
     subgraph Servicio_IA["Servicio de IA (offline)"]
+        direction TB
         TR[train.py<br/>entrenamiento y evaluación]
         MOD[(Modelos versionados<br/>*.joblib + metricas.json)]
     end
@@ -117,7 +119,7 @@ sequenceDiagram
 ## 2.5 Pipeline de IA
 
 ```mermaid
-flowchart LR
+flowchart TB
     A[CSV 20.000 tickets<br/>EN + DE] --> B[Filtrar inglés<br/>asunto + cuerpo<br/>quitar duplicados]
     B --> C[Partición estratificada<br/>70 / 15 / 15<br/>semilla 42]
     C --> D[TF-IDF<br/>unigramas + bigramas]
@@ -178,7 +180,6 @@ Documentación interactiva completa: `http://localhost:8000/docs`.
 
 Ejemplo real para *"VPN not connecting…"*. Aquí el puntaje del equipo (0,129) queda por debajo del umbral, así que la regla R2 lo envía a revisión manual: el modelo duda entre IT Support (0,129) y Customer Service (0,126), y el sistema lo deja ver en lugar de esconderlo.
 
-```
 
 ## 2.8 Wireframes (pantallas implementadas)
 

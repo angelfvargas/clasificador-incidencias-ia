@@ -7,3 +7,7 @@ node_modules/
 frontend/dist/
 *.pdf
 proyectos.txt
+informe/.venv/
+informe/prev/
+informe/informe.html
+informe/t.pdf
