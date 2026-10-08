@@ -1,0 +1,74 @@
+# Colección de la API (extensión REST Client de VS Code o similar).
+# 1) Ejecute "login" y copie el access_token en @token.
+@base = http://localhost:8000
+@token = PEGUE_AQUI_EL_TOKEN
+
+### salud
+GET {{base}}/salud
+
+### registro
+POST {{base}}/auth/registro
+Content-Type: application/json
+
+{"nombre": "Ana Pérez", "email": "ana@ejemplo.com", "clave": "clave12345"}
+
+### login
+POST {{base}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=ana@ejemplo.com&password=clave12345
+
+### quién soy
+GET {{base}}/auth/yo
+Authorization: Bearer {{token}}
+
+### clasificar sin guardar
+POST {{base}}/clasificar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"asunto": "VPN not connecting", "descripcion": "Since this morning I cannot connect to the company VPN, it says authentication failed."}
+
+### crear ticket
+POST {{base}}/tickets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"asunto": "Website down", "descripcion": "Our main website is down and customers cannot place orders."}
+
+### listar tickets
+GET {{base}}/tickets?estado=abierto
+Authorization: Bearer {{token}}
+
+### detalle
+GET {{base}}/tickets/ID_DEL_TICKET
+Authorization: Bearer {{token}}
+
+### cambiar estado (analista/admin)
+PATCH {{base}}/tickets/ID_DEL_TICKET/estado
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"estado": "en_progreso", "comentario": "Revisando"}
+
+### reasignar (analista/admin)
+PATCH {{base}}/tickets/ID_DEL_TICKET/asignacion
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"equipo": "IT Support", "comentario": "Es de infraestructura"}
+
+### métricas (analista/admin)
+GET {{base}}/metricas
+Authorization: Bearer {{token}}
+
+### usuarios (admin)
+GET {{base}}/usuarios
+Authorization: Bearer {{token}}
+
+### cambiar rol (admin)
+PATCH {{base}}/usuarios/ana@ejemplo.com/rol
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"rol": "analista"}

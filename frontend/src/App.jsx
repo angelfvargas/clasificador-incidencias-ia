@@ -252,7 +252,7 @@ export default function App() {
     if (sesion) api.yo().catch(() => { cerrarSesion(); setSesion(null); });
   }, [sesion]);
 
-  if (!sesion) return <main><Login alEntrar={() => setSesion(leerSesion())} /></main>;
+  if (!sesion) return <main><Login alEntrar={() => { setVista("lista"); setSesion(leerSesion()); }} /></main>;
   const gestor = sesion.rol === "admin" || sesion.rol === "analista";
   return (
     <>

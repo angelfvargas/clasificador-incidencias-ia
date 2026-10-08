@@ -36,6 +36,7 @@ def crear_admin():
 @asynccontextmanager
 async def ciclo_de_vida(_app):
     crear_admin()
+    ia.predecir("precarga")  # carga los modelos al arrancar para que la primera petición no tarde
     yield
 
 
